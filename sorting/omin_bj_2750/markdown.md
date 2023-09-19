@@ -1,4 +1,4 @@
-## n번 문제
+## 2750번 문제
 
 [문제 링크](https://www.acmicpc.net/)
 
