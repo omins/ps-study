@@ -2,8 +2,15 @@ const fs = require('fs');
 const filepath = process.platform === 'linux' ? '/dev/stdin' : 'input.txt';
 const input = fs.readFileSync(filepath).toString().trim().split('\n');
 
-const treesBeforeSort = input[1].split(' ').map(el => Number(el));
-const speedsBeforeSort = input[2].split(' ').map(el => Number(el));
+const N = Number(input[0]);
+const trees = input[1]
+  .trim()
+  .split(' ')
+  .map(el => Number(el));
+const speedsBeforeSort = input[2]
+  .trim()
+  .split(' ')
+  .map(el => Number(el));
 
 const sort = arr => {
   if (arr.length <= 1) return arr;
@@ -35,16 +42,12 @@ const merge = (left, right) => {
 };
 
 const speeds = sort(speedsBeforeSort);
-const trees = [];
 let answer = 0;
 
-for (let i = 0; i < speeds.length; i++) {
-  const idxBeforeSort = speedsBeforeSort.indexOf(speeds[i]);
-  trees.push(treesBeforeSort[idxBeforeSort]);
-}
+answer = trees.reduce((a, b) => a + b, 0);
 
-for (let i = 0; i < trees.length; i++) {
-  answer += trees[i] + speeds[i] * i;
+for (let i = 0; i < N; i++) {
+  answer += speeds[i] * i;
 }
 
 console.log(answer);
