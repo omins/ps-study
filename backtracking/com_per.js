@@ -34,7 +34,7 @@ const permutation = (arr, selectNum) => {
     if (selectNum === 1) return arr.map((e) => [e]);
 
     arr.forEach((item, idx, origin) => {
-        const remain = [...origin.slice(0, idx), ...origin.slice(idx)];
+        const remain = [...origin.slice(0, idx), ...origin.slice(idx + 1)];
         const recall = permutation(remain, selectNum - 1);
         const attach = recall.map((e) => [item, ...e]);
 
@@ -43,6 +43,20 @@ const permutation = (arr, selectNum) => {
     return result;
 }
 
+// 중복 순열
+const permutation2 = (arr, selectNum) => {
+    const result = [];
+    if (selectNum === 1) return arr.map((e) => [e]);
+
+    arr.forEach((item, idx) => {
+        const recall = permutation2(arr, selectNum - 1);
+        const attach = recall.map((e) => [item, ...e]);
+
+        result.push(...attach);
+    });
+    return result;
+}
+
 const newCom = combination2([1,7,8,9], 2);
-const newPer = permutation([1,7,8,9], 2);
+const newPer = permutation2([1,7,8,9], 2);
 console.log(newPer);
