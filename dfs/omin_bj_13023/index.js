@@ -1,3 +1,4 @@
+/* 아래 주석처리한 코드는 오답 코드입니다. 방문처리를 해제하지 않습니다. */
 // const fs = require('fs');
 // const filepath = process.platform === 'linux' ? '/dev/stdin' : 'input.txt';
 // const [NM, ...rest] = fs.readFileSync(filepath).toString().trim().split('\n');
@@ -18,8 +19,6 @@
 //   adj[right].push(left);
 // });
 
-// console.log(adj);
-
 // for (let i = 0; i < nodeCnt; i++) {
 //   const visited = Array.from({ length: nodeCnt }).fill(false);
 //   visited[i] = true;
@@ -28,10 +27,13 @@
 // }
 
 // console.log(answer);
+// console.log(adj);
 
 // function dfs(start, step, visited) {
+//   console.log('finding', start, visited, 'step', step);
 //   if (step === 5) {
 //     answer = 1;
+//     console.log(visited);
 //     return;
 //   }
 
@@ -43,6 +45,7 @@
 //   });
 // }
 
+/* 아래 코드는 정답 코드입니다. 방문처리를 해제합니다. */
 const fs = require('fs');
 const filepath = process.platform === 'linux' ? '/dev/stdin' : 'input.txt';
 const [NM, ...rest] = fs.readFileSync(filepath).toString().trim().split('\n');
@@ -87,6 +90,7 @@ function dfs(start, step, visited) {
       if (dfs(node, step + 1, visited)) {
         return true;
       }
+
       visited[node] = false;
     }
   }
