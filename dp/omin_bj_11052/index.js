@@ -1,37 +1,20 @@
 const fs = require('fs');
 const filePath = process.platform === 'linux' ? '/dev/stdin' : 'input.txt';
 const [n, rest] = fs.readFileSync(filePath).toString().trim().split('\n');
-const N = Number(n);
 const packCosts = rest.split(' ').map(Number);
 
-const memo = new Map();
-let maxCost = -Infinity;
+const maxValues = new Map();
+maxValues.set(0, packCosts[0]);
 
-packCosts.forEach((_, idx, origin) => {
-  const packNumber = idx + 1;
-  const cost = calculateCost(packNumber, packNumber, origin, memo, N);
-  maxCost = Math.max(maxCost, cost);
-});
+for (let i = 1; i < packCosts.length; i++) {
+  let currentMaxValue = packCosts[i];
 
-console.log(maxCost);
-
-function calculateCost(sumOfPack, packNumber, packCosts, memo, N) {
-  const key = `${sumOfPack},${packNumber}`;
-  if (memo.has(key)) return memo.get(key);
-
-  const packCost = packCosts[packNumber - 1];
-  if (sumOfPack === N) {
-    memo.set(key, packCost);
-    return packCost;
+  for (let j = 1; j <= Math.round(i / 2); j++) {
+    const calculatedValue = maxValues.get(i - j) + maxValues.get(j - 1);
+    currentMaxValue = Math.max(currentMaxValue, calculatedValue);
   }
 
-  let localMax = -Infinity;
-
-  for (let i = 1; i <= N - sumOfPack; i++) {
-    const childCost = calculateCost(sumOfPack + i, i, packCosts, memo, N);
-    localMax = Math.max(localMax, packCost + childCost);
-  }
-
-  memo.set(key, localMax);
-  return localMax;
+  maxValues.set(i, currentMaxValue);
 }
+
+console.log(maxValues.get(Number(n) - 1));
