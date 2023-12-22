@@ -85,3 +85,9 @@ $O(logN)$
 ### 난이도 / 걸린 시간
 
 - 골드4 / 2시간 30분 (정답 참조)
+
+### 참고자료
+
+- https://stonage.tistory.com/252
+- https://mathbang.net/562#gsc.tab=0
+- https://lhoiktiv.tistory.com/436
